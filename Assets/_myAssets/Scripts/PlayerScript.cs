@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
     [SerializeField] private float _vitesse = 100.0f;
     private Rigidbody _rb;
-    private bool _peutBouger = true;
 
     private void Start()
     {
@@ -20,19 +19,16 @@ public class PlayerScript : MonoBehaviour {
 
     private void MouvementsJoueur()
     {
-        if (_peutBouger)
-        {
-            float positionX = Input.GetAxis("Horizontal");
-            float positionZ = Input.GetAxis("Vertical");
-            Vector3 direction = new Vector3(positionX, 0f, positionZ);
-            direction.Normalize();
-            _rb.velocity = direction * Time.fixedDeltaTime * _vitesse;
-            transform.forward = direction;
-        }
+        float positionX = Input.GetAxis("Horizontal");
+        float positionZ = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(positionX, 0f, positionZ);
+        direction.Normalize();
+        _rb.velocity = direction * Time.fixedDeltaTime * _vitesse;
+        transform.forward = direction;
     }
 
     public void finPartieJoueur()
     {
-        _peutBouger = false;
+        gameObject.SetActive(false);
     }
 }
